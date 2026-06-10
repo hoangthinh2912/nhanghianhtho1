@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoRent - Thuê Xe Tự Lái</title>
-
 <style>
 *{
     margin:0;
@@ -18,7 +17,8 @@ html{
 }
 
 body{
-    background:#f4f6f9;
+    background:#f4f7fb;
+    color:#0f172a;
 }
 
 header{
@@ -31,83 +31,240 @@ header{
     position:sticky;
     top:0;
     z-index:1000;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 
 .logo{
     font-size:32px;
-    font-weight:bold;
+    font-weight:700;
+    letter-spacing:.4px;
+}
+
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
 }
 
 nav a{
     color:white;
     text-decoration:none;
-    margin-left:25px;
-    font-weight:500;
+    font-weight:600;
 }
 
 nav a:hover{
-    color:#60a5fa;
+    color:#7dd3fc;
 }
 
 .hero{
-    height:600px;
+    min-height:680px;
+    padding:80px 8%;
     background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600");
+        linear-gradient(135deg, rgba(7,22,51,.92), rgba(18,58,123,.78)),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600");
     background-size:cover;
     background-position:center;
     display:flex;
-    justify-content:center;
     align-items:center;
-    text-align:center;
     color:white;
 }
 
+.hero-grid{
+    width:100%;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
+    align-items:center;
+}
+
+.hero-badge{
+    display:inline-block;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(10px);
+    padding:10px 16px;
+    border-radius:999px;
+    margin-bottom:20px;
+    font-weight:700;
+    letter-spacing:.3px;
+}
+
 .hero h1{
-    font-size:60px;
-    margin-bottom:15px;
+    font-size:64px;
+    line-height:1.02;
+    margin-bottom:18px;
 }
 
 .hero p{
-    font-size:24px;
-    margin-bottom:25px;
+    font-size:20px;
+    line-height:1.7;
+    max-width:680px;
+    color:rgba(255,255,255,.92);
+    margin-bottom:30px;
+}
+
+.hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
 }
 
 .btn{
     display:inline-block;
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:12px;
+    font-weight:700;
+    transition:.2s ease;
+}
+
+.btn-primary{
     background:#2563eb;
     color:white;
-    text-decoration:none;
-    padding:14px 30px;
-    border-radius:8px;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.btn-secondary{
+    background:rgba(255,255,255,.08);
+    color:white;
+    border:1px solid rgba(255,255,255,.2);
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,.16);
+}
+
+.hero-card{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter:blur(14px);
+    border-radius:24px;
+    padding:24px;
+    box-shadow:0 20px 60px rgba(0,0,0,.16);
+}
+
+.hero-card h3{
+    font-size:24px;
+    margin-bottom:14px;
+}
+
+.hero-card ul{
+    list-style:none;
+    display:grid;
+    gap:12px;
+}
+
+.hero-card li{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.14);
+}
+
+.hero-card li span:last-child{
+    font-weight:700;
 }
 
 .section{
-    padding:80px 8%;
+    padding:84px 8%;
+}
+
+.section-head{
+    max-width:760px;
+    margin-bottom:28px;
+}
+
+.section-head .eyebrow{
+    display:inline-block;
+    color:#2563eb;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    margin-bottom:12px;
+    font-size:13px;
 }
 
 .title{
-    text-align:center;
-    margin-bottom:40px;
     font-size:42px;
+    margin-bottom:14px;
+    color:#0f172a;
+}
+
+.subtitle{
+    color:#475569;
+    line-height:1.8;
+    font-size:17px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:18px;
+}
+
+.stat{
+    background:white;
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+}
+
+.stat strong{
+    display:block;
+    font-size:34px;
+    color:#1d4ed8;
+    margin-bottom:8px;
+}
+
+.stat span{
+    color:#475569;
+    line-height:1.5;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+}
+
+.feature{
+    background:white;
+    border-radius:20px;
+    padding:26px;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+    border:1px solid #e2e8f0;
+}
+
+.feature h3{
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.feature p{
+    color:#475569;
+    line-height:1.7;
 }
 
 .cars{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
+    grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+    gap:26px;
 }
 
 .card{
     background:white;
-    border-radius:15px;
+    border-radius:22px;
     overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
-    transition:.3s;
+    box-shadow:0 14px 36px rgba(15,23,42,.1);
+    transition:.25s ease;
 }
 
 .card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-6px);
 }
 
 .card img{
@@ -117,65 +274,139 @@ nav a:hover{
 }
 
 .card-body{
-    padding:20px;
+    padding:22px;
+}
+
+.badge{
+    display:inline-block;
+    background:#dbeafe;
+    color:#1d4ed8;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.card h3{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#475569;
+    line-height:1.6;
+    margin-bottom:12px;
 }
 
 .price{
-    color:#2563eb;
+    color:#0f172a;
     font-size:24px;
-    font-weight:bold;
-    margin:10px 0;
+    font-weight:800;
+    margin:12px 0 16px;
 }
 
 .card button{
     width:100%;
-    padding:12px;
+    padding:13px 14px;
     border:none;
-    border-radius:8px;
+    border-radius:12px;
     background:#2563eb;
     color:white;
     cursor:pointer;
+    font-weight:700;
+    font-size:15px;
 }
 
 .card button:hover{
     background:#1d4ed8;
 }
 
-.booking-section{
+.process{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.step{
     background:white;
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+}
+
+.step .number{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#dbeafe;
+    color:#1d4ed8;
+    font-weight:800;
+    margin-bottom:14px;
+}
+
+.step h3{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.step p{
+    color:#475569;
+    line-height:1.7;
+}
+
+.booking-section{
+    background:#fff;
+}
+
+.booking-grid{
+    display:grid;
+    grid-template-columns:1fr .9fr;
+    gap:26px;
+    align-items:start;
 }
 
 .form-box{
-    max-width:700px;
-    margin:auto;
+    background:white;
+    max-width:none;
+    margin:0;
     padding:30px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    border-radius:20px;
+    box-shadow:0 14px 36px rgba(15,23,42,.08);
+    border:1px solid #e2e8f0;
 }
 
 .form-box input,
-.form-box textarea{
+.form-box textarea,
+.form-box select{
     width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
+    padding:13px 14px;
+    margin-bottom:14px;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    font-size:15px;
+    background:#fff;
 }
 
 .form-box label{
     display:block;
-    margin-bottom:5px;
-    font-weight:bold;
+    margin-bottom:6px;
+    font-weight:700;
+    color:#0f172a;
 }
 
 .form-box button{
     width:100%;
-    padding:14px;
+    padding:15px;
     border:none;
     background:#16a34a;
     color:white;
-    border-radius:8px;
+    border-radius:12px;
     font-size:16px;
+    font-weight:700;
     cursor:pointer;
 }
 
@@ -189,8 +420,95 @@ nav a:hover{
 }
 
 #totalPrice{
-    margin:15px 0;
-    color:#2563eb;
+    margin:16px 0 18px;
+    color:#1d4ed8;
+    font-size:22px;
+}
+
+.summary-panel{
+    display:grid;
+    gap:18px;
+}
+
+.summary-card{
+    background:linear-gradient(135deg,#071633,#123a7b);
+    color:white;
+    padding:26px;
+    border-radius:20px;
+    box-shadow:0 14px 36px rgba(15,23,42,.12);
+}
+
+.summary-card h3{
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.summary-card p,
+.summary-card li{
+    color:rgba(255,255,255,.92);
+    line-height:1.7;
+}
+
+.summary-card ul{
+    margin-top:12px;
+    padding-left:18px;
+}
+
+.testimonials{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:22px;
+}
+
+.quote{
+    background:white;
+    border-radius:20px;
+    padding:26px;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+}
+
+.quote p{
+    color:#334155;
+    line-height:1.8;
+    font-style:italic;
+    margin-bottom:18px;
+}
+
+.quote strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.quote span{
+    color:#64748b;
+    font-size:14px;
+}
+
+.cta{
+    background:
+        linear-gradient(135deg, rgba(7,22,51,.96), rgba(37,99,235,.88)),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600");
+    background-size:cover;
+    background-position:center;
+    border-radius:28px;
+    padding:44px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:center;
+    box-shadow:0 16px 42px rgba(15,23,42,.12);
+}
+
+.cta h2{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.cta p{
+    max-width:680px;
+    line-height:1.7;
+    color:rgba(255,255,255,.93);
 }
 
 footer{
@@ -199,14 +517,53 @@ footer{
     text-align:center;
     padding:25px;
 }
+
+@media (max-width: 980px){
+    .hero-grid,
+    .booking-grid,
+    .cta{
+        grid-template-columns:1fr;
+        display:grid;
+    }
+
+    .hero h1{
+        font-size:50px;
+    }
+}
+
+@media (max-width: 640px){
+    header{
+        padding:18px 5%;
+        gap:12px;
+    }
+
+    .hero{
+        padding:60px 5%;
+        min-height:auto;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .title{
+        font-size:32px;
+    }
+
+    .section{
+        padding:64px 5%;
+    }
+
+    .cta{
+        padding:28px;
+    }
+}
 </style>
 </head>
-
 <body>
 
 <header>
     <div class="logo">AutoRent</div>
-
     <nav>
         <a href="#home">Trang chủ</a>
         <a href="#cars">Xe cho thuê</a>
@@ -217,106 +574,154 @@ footer{
 </header>
 
 <section class="hero" id="home">
-    <div>
-        <h1>Thuê Xe Tự Lái Nhanh Chóng</h1>
-        <p>Đa dạng dòng xe - Giá tốt - Thủ tục đơn giản</p>
-        <a href="#cars" class="btn">Xem Xe Ngay</a>
+    <div class="hero-grid">
+        <div>
+            <div class="hero-badge">DỊCH VỤ THUÊ XE TỰ LÁI CHUYÊN NGHIỆP</div>
+            <h1>Thuê xe nhanh, rõ giá, đúng chuẩn dịch vụ cao cấp.</h1>
+            <p>
+                AutoRent cung cấp danh mục xe đa dạng cho nhu cầu đi công tác, du lịch gia đình và di chuyển ngắn ngày.
+                Toàn bộ quy trình được chuẩn hóa để khách hàng đặt xe nhanh, nhận xe đúng hẹn và an tâm trên mọi hành trình.
+            </p>
+            <div class="hero-actions">
+                <a href="#cars" class="btn btn-primary">Khám phá xe</a>
+                <a href="#booking" class="btn btn-secondary">Đặt xe ngay</a>
+            </div>
+        </div>
+        <div class="hero-card">
+            <h3>Điểm nổi bật</h3>
+            <ul>
+                <li><span>Hỗ trợ 24/7</span><span>Có</span></li>
+                <li><span>Xe đời mới</span><span>2022 - 2025</span></li>
+                <li><span>Đặt xe online</span><span>3 phút</span></li>
+                <li><span>Giao xe tận nơi</span><span>Miễn phí nội thành</span></li>
+                <li><span>Thủ tục</span><span>Rõ ràng</span></li>
+            </ul>
+        </div>
     </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div class="eyebrow">Dữ liệu mẫu</div>
+        <h2 class="title">Tổng quan vận hành</h2>
+        <p class="subtitle">
+            Các số liệu dưới đây là dữ liệu mẫu được khởi tạo sẵn để giao diện trông thật hơn, phù hợp để demo hoặc thay thế bằng dữ liệu từ backend sau này.
+        </p>
+    </div>
+    <div class="stats" id="stats"></div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div class="eyebrow">Vì sao chọn chúng tôi</div>
+        <h2 class="title">Dịch vụ được thiết kế cho trải nghiệm chuyên nghiệp</h2>
+        <p class="subtitle">
+            Giao diện mới tập trung vào thông tin dễ đọc, bố cục rõ ràng và dữ liệu mẫu đầy đủ để người dùng hiểu ngay giá trị dịch vụ.
+        </p>
+    </div>
+    <div class="features" id="features"></div>
 </section>
 
 <section class="section" id="cars">
-    <h2 class="title">Xe Nổi Bật</h2>
-
-    <div class="cars">
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1200">
-            <div class="card-body">
-                <h3>Toyota Vios</h3>
-                <p>5 chỗ - Số tự động</p>
-                <div class="price">700.000đ/ngày</div>
-                <button onclick="book('Toyota Vios')">
-                    Thuê Ngay
-                </button>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200">
-            <div class="card-body">
-                <h3>Hyundai Accent</h3>
-                <p>5 chỗ - Tiết kiệm nhiên liệu</p>
-                <div class="price">750.000đ/ngày</div>
-                <button onclick="book('Hyundai Accent')">
-                    Thuê Ngay
-                </button>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200">
-            <div class="card-body">
-                <h3>Kia Seltos</h3>
-                <p>SUV 5 chỗ</p>
-                <div class="price">1.100.000đ/ngày</div>
-                <button onclick="book('Kia Seltos')">
-                    Thuê Ngay
-                </button>
-            </div>
-        </div>
-
+    <div class="section-head">
+        <div class="eyebrow">Xe nổi bật</div>
+        <h2 class="title">Danh sách xe mẫu đang có sẵn</h2>
+        <p class="subtitle">
+            Mỗi mẫu xe đều có phân hạng, sức chứa, giá và ghi chú ngắn để bạn có thể dùng ngay cho demo hoặc mở rộng thành sản phẩm thật.
+        </p>
     </div>
+    <div class="cars" id="carList"></div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div class="eyebrow">Quy trình</div>
+        <h2 class="title">Cách đặt xe nhanh gọn</h2>
+        <p class="subtitle">
+            Chỉ cần chọn xe, điền thông tin cơ bản và xác nhận, AutoRent sẽ xử lý phần còn lại một cách rõ ràng và minh bạch.
+        </p>
+    </div>
+    <div class="process" id="process"></div>
 </section>
 
 <section class="section booking-section" id="booking">
-
-    <h2 class="title">Đặt Xe</h2>
-
-    <div class="form-box">
-
-        <input
-            type="text"
-            id="selectedCar"
-            readonly
-            placeholder="Tên xe đã chọn">
-
-        <input
-            type="text"
-            id="fullname"
-            placeholder="Họ và tên">
-
-        <input
-            type="tel"
-            id="phone"
-            placeholder="Số điện thoại">
-
-        <label>Ngày nhận xe</label>
-        <input
-            type="date"
-            id="pickupDate"
-            onchange="calculatePrice()">
-
-        <label>Ngày trả xe</label>
-        <input
-            type="date"
-            id="returnDate"
-            onchange="calculatePrice()">
-
-        <textarea
-            id="note"
-            rows="4"
-            placeholder="Ghi chú"></textarea>
-
-        <h3 id="totalPrice">
-            Tổng tiền: 0 đ
-        </h3>
-
-        <button onclick="submitBooking()">
-            Xác Nhận Đặt Xe
-        </button>
-
+    <div class="section-head">
+        <div class="eyebrow">Đặt xe</div>
+        <h2 class="title">Biểu mẫu đặt xe mẫu</h2>
+        <p class="subtitle">
+            Dữ liệu và ô nhập đã được chuẩn bị sẵn để khách truy cập có thể thao tác ngay, đồng thời vẫn giữ logic tính tiền theo ngày.
+        </p>
     </div>
 
+    <div class="booking-grid">
+        <div class="form-box">
+            <input type="text" id="selectedCar" readonly placeholder="Tên xe đã chọn">
+            <input type="text" id="fullname" placeholder="Họ và tên">
+            <input type="tel" id="phone" placeholder="Số điện thoại">
+
+            <label>Ngày nhận xe</label>
+            <input type="date" id="pickupDate" onchange="calculatePrice()">
+
+            <label>Ngày trả xe</label>
+            <input type="date" id="returnDate" onchange="calculatePrice()">
+
+            <label>Gói thuê</label>
+            <select id="packageType" onchange="updatePackageNote()">
+                <option value="standard">Tiêu chuẩn</option>
+                <option value="business">Doanh nhân</option>
+                <option value="family">Gia đình</option>
+            </select>
+
+            <textarea id="note" rows="4" placeholder="Ghi chú"></textarea>
+
+            <h3 id="totalPrice">Tổng tiền: 0 đ</h3>
+            <button onclick="submitBooking()">Xác Nhận Đặt Xe</button>
+        </div>
+
+        <div class="summary-panel">
+            <div class="summary-card">
+                <h3>Thông tin dịch vụ</h3>
+                <p>
+                    AutoRent phù hợp cho khách cần xe đi công tác, đi tỉnh hoặc du lịch gia đình. Các gói thuê được thiết kế linh hoạt theo nhu cầu sử dụng thực tế.
+                </p>
+                <ul>
+                    <li>Giao xe tận nơi nội thành</li>
+                    <li>Hỗ trợ hợp đồng và kiểm tra xe</li>
+                    <li>Ưu đãi cho khách thuê dài ngày</li>
+                </ul>
+            </div>
+            <div class="summary-card">
+                <h3>Gợi ý nhanh</h3>
+                <p id="packageNote">Gói Tiêu chuẩn phù hợp cho nhu cầu thuê ngắn ngày và linh hoạt.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div class="eyebrow">Đánh giá</div>
+        <h2 class="title">Khách hàng nói gì về AutoRent</h2>
+        <p class="subtitle">
+            Mẫu phản hồi này giúp trang nhìn có chiều sâu hơn và tăng độ tin cậy cho phần giới thiệu dịch vụ.
+        </p>
+    </div>
+    <div class="testimonials" id="testimonials"></div>
+</section>
+
+<section class="section">
+    <div class="cta">
+        <div>
+            <h2>Sẵn sàng trải nghiệm dịch vụ thuê xe chuyên nghiệp?</h2>
+            <p>
+                Xem danh sách xe nổi bật, chọn gói thuê phù hợp hoặc liên hệ trực tiếp để được tư vấn nhanh nhất cho lịch trình của bạn.
+            </p>
+        </div>
+        <div class="hero-actions" style="justify-content:flex-end;">
+            <a href="#cars" class="btn btn-primary">Xem xe mẫu</a>
+            <a href="contact.html" class="btn btn-secondary">Liên hệ ngay</a>
+        </div>
+    </div>
 </section>
 
 <footer>
@@ -324,34 +729,157 @@ footer{
 </footer>
 
 <script>
+const stats = [
+    { value: "1.250+", label: "Lượt thuê thành công mỗi tháng" },
+    { value: "48", label: "Mẫu xe sẵn sàng phục vụ" },
+    { value: "24/7", label: "Hỗ trợ tư vấn và tiếp nhận" },
+    { value: "4.9/5", label: "Đánh giá trung bình từ khách hàng" }
+];
 
-const carPrices = {
-    "Toyota Vios": 700000,
-    "Hyundai Accent": 750000,
-    "Kia Seltos": 1100000
-};
+const features = [
+    {
+        title: "Xe đời mới, bảo dưỡng định kỳ",
+        description: "Danh sách xe được chuẩn hóa theo trạng thái, đời xe và phân khúc để khách hàng dễ chọn theo nhu cầu sử dụng."
+    },
+    {
+        title: "Quy trình minh bạch",
+        description: "Giá thuê, thời gian và điều kiện nhận xe được hiển thị rõ ràng để hạn chế phát sinh ngoài kế hoạch."
+    },
+    {
+        title: "Phục vụ nhanh",
+        description: "Từ thao tác chọn xe đến xác nhận đơn đều đơn giản, phù hợp cho khách cần phản hồi nhanh trong ngày."
+    },
+    {
+        title: "Hỗ trợ nội thành",
+        description: "Giao xe tận nơi và hỗ trợ linh hoạt trong các khu vực trung tâm giúp tiết kiệm thời gian di chuyển."
+    }
+];
+
+const carData = [
+    {
+        name: "Toyota Vios",
+        type: "Sedan 5 chỗ",
+        price: 700000,
+        note: "Phù hợp đi làm, đi tỉnh ngắn ngày và khách cần sự tiết kiệm.",
+        image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1200"
+    },
+    {
+        name: "Hyundai Accent",
+        type: "Sedan 5 chỗ",
+        price: 750000,
+        note: "Mẫu xe cân bằng giữa chi phí, tiện nghi và khả năng vận hành ổn định.",
+        image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200"
+    },
+    {
+        name: "Kia Seltos",
+        type: "SUV 5 chỗ",
+        price: 1100000,
+        note: "Thích hợp gia đình nhỏ, mang nhiều hành lý hoặc đi xa cuối tuần.",
+        image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200"
+    },
+    {
+        name: "Mazda CX-5",
+        type: "SUV 5 chỗ",
+        price: 1350000,
+        note: "Dành cho khách cần trải nghiệm cao cấp hơn và khoang ngồi rộng rãi.",
+        image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1200"
+    }
+];
+
+const processSteps = [
+    {
+        title: "Chọn xe phù hợp",
+        description: "Lọc theo số chỗ, mục đích sử dụng và mức giá để tìm mẫu xe phù hợp nhất."
+    },
+    {
+        title: "Điền thông tin đặt xe",
+        description: "Nhập họ tên, số điện thoại và thời gian nhận trả xe để hệ thống tính toán nhanh."
+    },
+    {
+        title: "Xác nhận và bàn giao",
+        description: "Kiểm tra lại thông tin, chốt lịch và tiến hành bàn giao xe theo đúng thời gian đã đặt."
+    }
+];
+
+const testimonials = [
+    {
+        name: "Nguyễn Văn Minh",
+        role: "Khách thuê xe công tác",
+        content: "Giao diện rõ ràng, xe đẹp và thông tin thuê rất dễ hiểu. Tôi chọn xe, đặt lịch và nhận phản hồi rất nhanh."
+    },
+    {
+        name: "Lê Thị Hạnh",
+        role: "Khách du lịch gia đình",
+        content: "Phần giới thiệu chuyên nghiệp hơn hẳn, nhìn vào là biết ngay nên chọn xe nào cho chuyến đi cuối tuần."
+    },
+    {
+        name: "Trần Quốc Bảo",
+        role: "Khách thuê dài ngày",
+        content: "Mẫu dữ liệu đầy đủ, bố cục sáng sủa và điều kiện thuê được trình bày rõ. Rất phù hợp để demo cho khách."
+    }
+];
+
+const statsContainer = document.getElementById("stats");
+statsContainer.innerHTML = stats.map((item) => `
+    <div class="stat">
+        <strong>${item.value}</strong>
+        <span>${item.label}</span>
+    </div>
+`).join("");
+
+const featuresContainer = document.getElementById("features");
+featuresContainer.innerHTML = features.map((item) => `
+    <article class="feature">
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+    </article>
+`).join("");
+
+const carList = document.getElementById("carList");
+carList.innerHTML = carData.map((car) => `
+    <article class="card">
+        <img src="${car.image}" alt="${car.name}">
+        <div class="card-body">
+            <span class="badge">${car.type}</span>
+            <h3>${car.name}</h3>
+            <p>${car.note}</p>
+            <div class="price">${car.price.toLocaleString("vi-VN")}đ/ngày</div>
+            <button onclick="book('${car.name}')">Thuê Ngay</button>
+        </div>
+    </article>
+`).join("");
+
+const processContainer = document.getElementById("process");
+processContainer.innerHTML = processSteps.map((step, index) => `
+    <article class="step">
+        <div class="number">0${index + 1}</div>
+        <h3>${step.title}</h3>
+        <p>${step.description}</p>
+    </article>
+`).join("");
+
+const testimonialsContainer = document.getElementById("testimonials");
+testimonialsContainer.innerHTML = testimonials.map((item) => `
+    <article class="quote">
+        <p>“${item.content}”</p>
+        <strong>${item.name}</strong>
+        <span>${item.role}</span>
+    </article>
+`).join("");
+
+const carPrices = Object.fromEntries(carData.map((car) => [car.name, car.price]));
 
 function book(car){
-
     document.getElementById("selectedCar").value = car;
-
-    document.getElementById("booking").scrollIntoView({
-        behavior:"smooth"
-    });
-
+    document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
     calculatePrice();
+    updatePackageNote();
 }
 
 function calculatePrice(){
-
-    const car =
-        document.getElementById("selectedCar").value;
-
-    const pickup =
-        document.getElementById("pickupDate").value;
-
-    const returnDate =
-        document.getElementById("returnDate").value;
+    const car = document.getElementById("selectedCar").value;
+    const pickup = document.getElementById("pickupDate").value;
+    const returnDate = document.getElementById("returnDate").value;
 
     if(!car || !pickup || !returnDate){
         return;
@@ -361,56 +889,42 @@ function calculatePrice(){
     const end = new Date(returnDate);
 
     if(end <= start){
-
-        document.getElementById("totalPrice").innerHTML =
-        "Ngày trả phải lớn hơn ngày nhận";
-
+        document.getElementById("totalPrice").innerHTML = "Ngày trả phải lớn hơn ngày nhận";
         return;
     }
 
-    const days =
-        Math.ceil(
-            (end - start) /
-            (1000 * 60 * 60 * 24)
-        );
+    const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    const total = days * carPrices[car];
 
-    const total =
-        days * carPrices[car];
+    document.getElementById("totalPrice").innerHTML = "Tổng tiền: " + total.toLocaleString("vi-VN") + " đ (" + days + " ngày)";
+}
 
-    document.getElementById("totalPrice").innerHTML =
-        "Tổng tiền: " +
-        total.toLocaleString("vi-VN") +
-        " đ (" + days + " ngày)";
+function updatePackageNote(){
+    const packageType = document.getElementById("packageType").value;
+    const packageNotes = {
+        standard: "Gói Tiêu chuẩn phù hợp cho nhu cầu thuê ngắn ngày và linh hoạt.",
+        business: "Gói Doanh nhân ưu tiên xe lịch sự, phù hợp cho công tác và gặp đối tác.",
+        family: "Gói Gia đình tối ưu cho chuyến đi dài ngày, nhiều người và nhiều hành lý."
+    };
+
+    document.getElementById("packageNote").innerText = packageNotes[packageType] || packageNotes.standard;
 }
 
 function submitBooking(){
-
-    const car =
-        document.getElementById("selectedCar").value;
-
-    const name =
-        document.getElementById("fullname").value;
-
-    const phone =
-        document.getElementById("phone").value;
-
-    const pickup =
-        document.getElementById("pickupDate").value;
-
-    const returnDate =
-        document.getElementById("returnDate").value;
+    const car = document.getElementById("selectedCar").value;
+    const name = document.getElementById("fullname").value;
+    const phone = document.getElementById("phone").value;
+    const pickup = document.getElementById("pickupDate").value;
+    const returnDate = document.getElementById("returnDate").value;
+    const note = document.getElementById("note").value;
+    const packageType = document.getElementById("packageType").value;
 
     if(!car){
         alert("Vui lòng chọn xe trước.");
         return;
     }
 
-    if(
-        !name ||
-        !phone ||
-        !pickup ||
-        !returnDate
-    ){
+    if(!name || !phone || !pickup || !returnDate){
         alert("Vui lòng nhập đầy đủ thông tin.");
         return;
     }
@@ -420,11 +934,14 @@ function submitBooking(){
         "Khách hàng: " + name + "\n" +
         "SĐT: " + phone + "\n" +
         "Xe: " + car + "\n" +
+        "Gói thuê: " + packageType + "\n" +
         "Ngày nhận: " + pickup + "\n" +
-        "Ngày trả: " + returnDate
+        "Ngày trả: " + returnDate + "\n" +
+        "Ghi chú: " + note
     );
 }
 
+updatePackageNote();
 </script>
 
 </body>
