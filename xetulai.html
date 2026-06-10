@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoRent - Thuê Xe Tự Lái</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:#071633;
+    color:#fff;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#60a5fa;
+}
+
+.hero{
+    height:600px;
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:24px;
+    margin-bottom:25px;
+}
+
+.btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:14px 30px;
+    border-radius:8px;
+}
+
+.section{
+    padding:80px 8%;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:42px;
+}
+
+.cars{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.price{
+    color:#2563eb;
+    font-size:24px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.card button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.card button:hover{
+    background:#1d4ed8;
+}
+
+.booking-section{
+    background:white;
+}
+
+.form-box{
+    max-width:700px;
+    margin:auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.form-box input,
+.form-box textarea{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+}
+
+.form-box label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.form-box button{
+    width:100%;
+    padding:14px;
+    border:none;
+    background:#16a34a;
+    color:white;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.form-box button:hover{
+    background:#15803d;
+}
+
+#selectedCar{
+    background:#eff6ff;
+    font-weight:bold;
+}
+
+#totalPrice{
+    margin:15px 0;
+    color:#2563eb;
+}
+
+footer{
+    background:#071633;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">AutoRent</div>
+
+    <nav>
+        <a href="#home">Trang chủ</a>
+        <a href="#cars">Xe cho thuê</a>
+        <a href="#booking">Đặt xe</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Liên hệ</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div>
+        <h1>Thuê Xe Tự Lái Nhanh Chóng</h1>
+        <p>Đa dạng dòng xe - Giá tốt - Thủ tục đơn giản</p>
+        <a href="#cars" class="btn">Xem Xe Ngay</a>
+    </div>
+</section>
+
+<section class="section" id="cars">
+    <h2 class="title">Xe Nổi Bật</h2>
+
+    <div class="cars">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1200">
+            <div class="card-body">
+                <h3>Toyota Vios</h3>
+                <p>5 chỗ - Số tự động</p>
+                <div class="price">700.000đ/ngày</div>
+                <button onclick="book('Toyota Vios')">
+                    Thuê Ngay
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200">
+            <div class="card-body">
+                <h3>Hyundai Accent</h3>
+                <p>5 chỗ - Tiết kiệm nhiên liệu</p>
+                <div class="price">750.000đ/ngày</div>
+                <button onclick="book('Hyundai Accent')">
+                    Thuê Ngay
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200">
+            <div class="card-body">
+                <h3>Kia Seltos</h3>
+                <p>SUV 5 chỗ</p>
+                <div class="price">1.100.000đ/ngày</div>
+                <button onclick="book('Kia Seltos')">
+                    Thuê Ngay
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section booking-section" id="booking">
+
+    <h2 class="title">Đặt Xe</h2>
+
+    <div class="form-box">
+
+        <input
+            type="text"
+            id="selectedCar"
+            readonly
+            placeholder="Tên xe đã chọn">
+
+        <input
+            type="text"
+            id="fullname"
+            placeholder="Họ và tên">
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Số điện thoại">
+
+        <label>Ngày nhận xe</label>
+        <input
+            type="date"
+            id="pickupDate"
+            onchange="calculatePrice()">
+
+        <label>Ngày trả xe</label>
+        <input
+            type="date"
+            id="returnDate"
+            onchange="calculatePrice()">
+
+        <textarea
+            id="note"
+            rows="4"
+            placeholder="Ghi chú"></textarea>
+
+        <h3 id="totalPrice">
+            Tổng tiền: 0 đ
+        </h3>
+
+        <button onclick="submitBooking()">
+            Xác Nhận Đặt Xe
+        </button>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 AutoRent - Thuê Xe Tự Lái
+</footer>
+
+<script>
+
+const carPrices = {
+    "Toyota Vios": 700000,
+    "Hyundai Accent": 750000,
+    "Kia Seltos": 1100000
+};
+
+function book(car){
+
+    document.getElementById("selectedCar").value = car;
+
+    document.getElementById("booking").scrollIntoView({
+        behavior:"smooth"
+    });
+
+    calculatePrice();
+}
+
+function calculatePrice(){
+
+    const car =
+        document.getElementById("selectedCar").value;
+
+    const pickup =
+        document.getElementById("pickupDate").value;
+
+    const returnDate =
+        document.getElementById("returnDate").value;
+
+    if(!car || !pickup || !returnDate){
+        return;
+    }
+
+    const start = new Date(pickup);
+    const end = new Date(returnDate);
+
+    if(end <= start){
+
+        document.getElementById("totalPrice").innerHTML =
+        "Ngày trả phải lớn hơn ngày nhận";
+
+        return;
+    }
+
+    const days =
+        Math.ceil(
+            (end - start) /
+            (1000 * 60 * 60 * 24)
+        );
+
+    const total =
+        days * carPrices[car];
+
+    document.getElementById("totalPrice").innerHTML =
+        "Tổng tiền: " +
+        total.toLocaleString("vi-VN") +
+        " đ (" + days + " ngày)";
+}
+
+function submitBooking(){
+
+    const car =
+        document.getElementById("selectedCar").value;
+
+    const name =
+        document.getElementById("fullname").value;
+
+    const phone =
+        document.getElementById("phone").value;
+
+    const pickup =
+        document.getElementById("pickupDate").value;
+
+    const returnDate =
+        document.getElementById("returnDate").value;
+
+    if(!car){
+        alert("Vui lòng chọn xe trước.");
+        return;
+    }
+
+    if(
+        !name ||
+        !phone ||
+        !pickup ||
+        !returnDate
+    ){
+        alert("Vui lòng nhập đầy đủ thông tin.");
+        return;
+    }
+
+    alert(
+        "ĐẶT XE THÀNH CÔNG!\n\n" +
+        "Khách hàng: " + name + "\n" +
+        "SĐT: " + phone + "\n" +
+        "Xe: " + car + "\n" +
+        "Ngày nhận: " + pickup + "\n" +
+        "Ngày trả: " + returnDate
+    );
+}
+
+</script>
+
+</body>
+</html>

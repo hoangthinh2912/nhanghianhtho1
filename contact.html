@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoRent - Liên Hệ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #0f172a;
+        }
+
+        header {
+            background: #071633;
+            color: #fff;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        .hero {
+            padding: 90px 8% 60px;
+            background: linear-gradient(135deg, #071633, #123a7b);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 54px;
+            margin-bottom: 14px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.92;
+        }
+
+        .section {
+            padding: 70px 8%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2,
+        .form-card h2 {
+            margin-bottom: 16px;
+        }
+
+        .contact-item {
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        .contact-item b {
+            display: block;
+            margin-bottom: 4px;
+            color: #071633;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-card input,
+        .form-card textarea {
+            width: 100%;
+            padding: 13px 14px;
+            margin-bottom: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .form-card button,
+        .back-link {
+            display: inline-block;
+            border: none;
+            border-radius: 10px;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .form-card button:hover,
+        .back-link:hover {
+            background: #1d4ed8;
+        }
+
+        .map-box {
+            margin-top: 24px;
+            background: #e2e8f0;
+            border-radius: 18px;
+            min-height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #071633;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">AutoRent</div>
+    <nav>
+        <a href="xetulai.html">Trang chủ</a>
+        <a href="xetulai.html#cars">Xe cho thuê</a>
+        <a href="xetulai.html#booking">Đặt xe</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Liên hệ</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Liên hệ với AutoRent</h1>
+    <p>
+        Gọi trực tiếp, gửi email hoặc để lại lời nhắn, đội ngũ của chúng tôi sẽ phản hồi sớm nhất để hỗ trợ bạn đặt xe, báo giá và tư vấn chuyến đi phù hợp.
+    </p>
+</section>
+
+<section class="section">
+    <div class="grid">
+        <div class="card">
+            <h2>Thông tin liên hệ</h2>
+            <div class="contact-item">
+                <b>Hotline</b>
+                0909 123 456
+            </div>
+            <div class="contact-item">
+                <b>Email</b>
+                lienhe@autorent.vn
+            </div>
+            <div class="contact-item">
+                <b>Địa chỉ</b>
+                123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh
+            </div>
+            <div class="contact-item">
+                <b>Giờ làm việc</b>
+                08:00 - 20:00, tất cả các ngày trong tuần
+            </div>
+        </div>
+
+        <div class="form-card">
+            <h2>Gửi lời nhắn</h2>
+            <form onsubmit="sendContact(event)">
+                <input type="text" id="contactName" placeholder="Họ và tên" required>
+                <input type="tel" id="contactPhone" placeholder="Số điện thoại" required>
+                <input type="email" id="contactEmail" placeholder="Email" required>
+                <textarea id="contactMessage" rows="5" placeholder="Nội dung cần hỗ trợ" required></textarea>
+                <button type="submit">Gửi liên hệ</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="map-box">
+        Khu vực bản đồ / vị trí cửa hàng có thể đặt ở đây
+    </div>
+
+    <div style="margin-top: 28px; text-align: center;">
+        <a class="back-link" href="xetulai.html">Quay về trang chủ</a>
+    </div>
+</section>
+
+<footer>
+    © 2026 AutoRent - Thuê Xe Tự Lái
+</footer>
+
+<script>
+    function sendContact(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("contactName").value;
+        const phone = document.getElementById("contactPhone").value;
+        const email = document.getElementById("contactEmail").value;
+        const message = document.getElementById("contactMessage").value;
+
+        alert(
+            "ĐÃ GỬI LIÊN HỆ THÀNH CÔNG!\n\n" +
+            "Họ tên: " + name + "\n" +
+            "SĐT: " + phone + "\n" +
+            "Email: " + email + "\n" +
+            "Nội dung: " + message
+        );
+
+        event.target.reset();
+    }
+</script>
+</body>
+</html>

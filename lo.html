@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Web Mẫu</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .hero {
+            height: 80vh;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: #2563eb;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .features {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>My Website</h2>
+    <nav>
+        <a href="#">Trang chủ</a>
+        <a href="#">Dịch vụ</a>
+        <a href="#">Liên hệ</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Chào mừng đến với Website</h1>
+   
+    <button class="btn" onclick="showMessage()">
+        Khám phá ngay
+    </button>
+</section>
+
+<section class="features">
+    <h2>Tính năng nổi bật</h2>
+
+    <div class="feature-grid">
+        <div class="card">
+            <h3>🚀 Hiệu năng cao</h3>
+            <p>Tối ưu tốc độ tải trang và trải nghiệm người dùng.</p>
+        </div>
+
+        <div class="card">
+            <h3>🎨 Thiết kế đẹp</h3>
+            <p>Giao diện hiện đại, thân thiện trên mọi thiết bị.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔒 Bảo mật</h3>
+            <p>Đảm bảo an toàn dữ liệu và quyền riêng tư.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 My Website. All rights reserved.</p>
+</footer>
+
+<script>
+    function showMessage() {
+        alert("Cảm ơn bạn đã ghé thăm website!");
+    }
+</script>
+
+</body>
+</html>
