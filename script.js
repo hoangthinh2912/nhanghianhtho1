@@ -6,13 +6,12 @@ export default {
 
       await env.DB.prepare(`
         INSERT INTO bookings
-        (fullname, phone, room, stay_type, checkin_date, checkout_date, note)
+        (name, phone,, stay_type, checkin_date, checkout_date, note)
         VALUES (?, ?, ?, ?, ?, ?, ?)
       `)
       .bind(
-        data.fullname,
+        data.name,
         data.phone,
-        data.room,
         data.stay_type,
         data.checkin_date,
         data.checkout_date,
