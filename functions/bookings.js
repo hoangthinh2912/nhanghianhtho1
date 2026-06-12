@@ -5,17 +5,17 @@ export async function onRequestPost(context) {
 
   await env.DB.prepare(`
     INSERT INTO bookings
-    (fullname, phone, room)
-    VALUES (?, ?, ?)
+    (customer_name, phone, room_type, checkin_date, note)
+    VALUES (?, ?, ?, ?, ?)
   `)
   .bind(
-    data.fullname,
+    data.customer_name,
     data.phone,
-    data.room
+    data.room_type,
+    data.checkin_date,
+    data.note
   )
   .run();
 
-  return Response.json({
-    success: true
-  });
+  return Response.json({ success: true });
 }
