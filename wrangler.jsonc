@@ -1,9 +1,22 @@
 {
-  "d1_databases": [
+  "name": "nhanghianhtho1",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-06-12",
+  "assets": {
+    "directory": "."
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "INVENTORY",
+        "class_name": "InventoryStore"
+      }
+    ]
+  },
+  "migrations": [
     {
-      "binding": "DB",
-      "database_name": "nhanghianhtho-db",
-      "database_id": "..."
+      "tag": "v1",
+      "new_classes": ["InventoryStore"]
     }
   ]
 }

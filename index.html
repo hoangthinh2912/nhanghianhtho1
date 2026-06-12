@@ -306,6 +306,15 @@ nav a:hover{
 	padding:22px;
 }
 
+.room-meta{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	gap:12px;
+	flex-wrap:wrap;
+	margin-bottom:12px;
+}
+
 .pill{
 	display:inline-block;
 	background:#fef3c7;
@@ -315,6 +324,28 @@ nav a:hover{
 	padding:7px 12px;
 	border-radius:999px;
 	margin-bottom:12px;
+}
+
+.room-stock{
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	padding:7px 12px;
+	border-radius:999px;
+	background:#ecfeff;
+	color:#155e75;
+	font-size:13px;
+	font-weight:900;
+}
+
+.room-stock.low{
+	background:#fef3c7;
+	color:#92400e;
+}
+
+.room-stock.empty{
+	background:#fee2e2;
+	color:#991b1b;
 }
 
 .room h3{
@@ -356,6 +387,11 @@ nav a:hover{
 
 .room button:hover{
 	background:#d97706;
+}
+
+.room button:disabled{
+	background:#9ca3af;
+	cursor:not-allowed;
 }
 
 .gallery{
@@ -687,16 +723,27 @@ footer{
 	<div class="booking-layout">
 		<div class="booking-box">
 			<input type="text" id="selectedRoom" readonly placeholder="Hạng phòng đã chọn">
-			<input id="customer_name" type="text">
-<input id="phone" type="text">
-<select id="room_type">
-  <option>Phòng Thường</option>
-  <option>Phòng Cao Cấp</option>
-</select>
-<input id="checkin_date" type="date">
-<textarea id="note"></textarea>
+			<input type="text" id="fullname" placeholder="Họ và tên">
+			<input type="tel" id="phone" placeholder="Số điện thoại">
 
-<button onclick="datPhong()">Xác nhận đặt phòng</button>
+			<label>Ngày nhận phòng</label>
+			<input type="date" id="checkinDate" onchange="calculatePrice()">
+
+			<label>Ngày trả phòng</label>
+			<input type="date" id="checkoutDate" onchange="calculatePrice()">
+
+			<label>Loại lưu trú</label>
+			<select id="stayType" onchange="updateStayNote()">
+				<option value="standard">Tiêu chuẩn</option>
+				<option value="family">Gia đình</option>
+				<option value="vip">Cao cấp</option>
+			</select>
+
+			<textarea id="note" placeholder="Ghi chú thêm cho nhà nghỉ"></textarea>
+
+			<h3 id="totalPrice">Tổng tiền: 0 đ</h3>
+			<div id="bookingNote">Gói tiêu chuẩn phù hợp cho khách lưu trú ngắn ngày.</div>
+			<button onclick="submitBooking()">Xác nhận đặt phòng</button>
 		</div>
 
 		<div class="side-stack">
@@ -714,6 +761,11 @@ footer{
 			<div class="mini-card">
 				<h3>Gợi ý nhanh</h3>
 				<p id="stayHint">Gói tiêu chuẩn phù hợp cho khách cần một nơi nghỉ ngơi tiện lợi và tiết kiệm.</p>
+			</div>
+			<div class="mini-card">
+				<h3>Dữ liệu đặt phòng</h3>
+				<p id="bookingCount">Chưa có bản ghi nào được lưu.</p>
+				<ul id="bookingRecords"></ul>
 			</div>
 		</div>
 	</div>
@@ -751,256 +803,470 @@ footer{
 		</div>
 		<div class="contact-box">
 			<h3>Email</h3>
-			<p>hoangthinh291204@gmail.com</p>
-		</div>
-	</div>
-</section>
+			<script>
+			const stats = [
+				{ value: "25+", label: "Phòng nghỉ sẵn sàng phục vụ" },
+				{ value: "24/7", label: "Hỗ trợ khách lưu trú" },
+				{ value: "5 phút", label: "Thời gian xác nhận đặt phòng" },
+				{ value: "4.9/5", label: "Đánh giá trải nghiệm mẫu" }
+			];
 
-<section class="section">
-	<div class="cta">
-		<div>
-			<h2>Sẵn sàng đặt phòng tại Nhà nghỉ Anh Thơ?</h2>
-			<p>
-				Xem phòng phù hợp, kiểm tra giá mẫu và liên hệ ngay để giữ chỗ cho chuyến đi sắp tới của bạn.
-			</p>
-		</div>
-		<div class="hero-actions" style="justify-content:flex-end;">
-			<a href="#booking" class="btn btn-primary">Đặt phòng ngay</a>
-			<a href="#contact" class="btn btn-secondary">Xem liên hệ</a>
-		</div>
-	</div>
-</section>
+			const features = [
+				{
+					title: "Phòng sạch sẽ, gọn gàng",
+					description: "Không gian được thiết kế đơn giản nhưng ấm cúng, phù hợp với khách đi công tác hoặc nghỉ dưỡng ngắn ngày."
+				},
+				{
+					title: "Tiện nghi đầy đủ",
+					description: "Wifi, máy lạnh, nước nóng, chỗ để xe và dịch vụ hỗ trợ cơ bản được trình bày rõ ngay trên trang."
+				},
+				{
+					title: "Đặt phòng thuận tiện",
+					description: "Biểu mẫu đặt phòng mẫu giúp khách nhập thông tin nhanh, dễ điều chỉnh giá và thời gian lưu trú."
+				},
+				{
+					title: "Phục vụ thân thiện",
+					description: "Cách trình bày tập trung vào cảm giác gần gũi, dễ hiểu và phù hợp với một nhà nghỉ gia đình."
+				}
+			];
 
-<footer>
-	© 2026 Nhà nghỉ Anh Thơ
-</footer>
+			const processSteps = [
+				{
+					title: "Chọn loại phòng",
+					description: "Xem hạng phòng, tiện nghi và giá mẫu để chọn phương án phù hợp với nhu cầu."
+				},
+				{
+					title: "Nhập thông tin",
+					description: "Điền họ tên, số điện thoại và thời gian lưu trú để chuẩn bị đặt phòng."
+				},
+				{
+					title: "Xác nhận đặt chỗ",
+					description: "Kiểm tra lại thông tin và gửi yêu cầu để nhà nghỉ xác nhận nhanh chóng."
+				}
+			];
 
-<script>
-const stats = [
-	{ value: "25+", label: "Phòng nghỉ sẵn sàng phục vụ" },
-	{ value: "24/7", label: "Hỗ trợ khách lưu trú" },
-	{ value: "5 phút", label: "Thời gian xác nhận đặt phòng" },
-	{ value: "4.9/5", label: "Đánh giá trải nghiệm mẫu" }
-];
+			const galleryImages = [
+				"https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=1200",
+				"https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=1200",
+				"https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1200",
+				"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200"
+			];
 
-const features = [
-	{
-		title: "Phòng sạch sẽ, gọn gàng",
-		description: "Không gian được thiết kế đơn giản nhưng ấm cúng, phù hợp với khách đi công tác hoặc nghỉ dưỡng ngắn ngày."
-	},
-	{
-		title: "Tiện nghi đầy đủ",
-		description: "Wifi, máy lạnh, nước nóng, chỗ để xe và dịch vụ hỗ trợ cơ bản được trình bày rõ ngay trên trang."
-	},
-	{
-		title: "Đặt phòng thuận tiện",
-		description: "Biểu mẫu đặt phòng mẫu giúp khách nhập thông tin nhanh, dễ điều chỉnh giá và thời gian lưu trú."
-	},
-	{
-		title: "Phục vụ thân thiện",
-		description: "Cách trình bày tập trung vào cảm giác gần gũi, dễ hiểu và phù hợp với một nhà nghỉ gia đình."
-	}
-];
+			const reviews = [
+				{
+					name: "Nguyễn Thị Lan",
+					role: "Khách lưu trú 2 đêm",
+					content: "Trang web nhìn sạch sẽ, dễ tìm phòng và có đầy đủ thông tin cần thiết trước khi đặt."
+				},
+				{
+					name: "Trần Văn Hùng",
+					role: "Khách công tác",
+					content: "Bố cục rõ ràng, thông tin liên hệ nổi bật. Rất hợp với kiểu nhà nghỉ cần sự nhanh gọn."
+				},
+				{
+					name: "Lê Minh Thảo",
+					role: "Khách đi gia đình",
+					content: "Phòng nghỉ được trình bày đẹp, dễ xem giá và tiện nghi. Cảm giác thân thiện hơn hẳn."
+				}
+			];
 
-const rooms = [
-	{
-		name: "Phòng Tiêu chuẩn",
-		type: "1-2 khách",
-		price: 280000,
-		note: "Phù hợp khách đi công tác hoặc lưu trú ngắn ngày cần chi phí hợp lý.",
-		image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200",
-		amenities: ["Wifi miễn phí", "Máy lạnh", "Nước nóng"]
-	},
-	{
-		name: "Phòng Gia đình",
-		type: "3-4 khách",
-		price: 420000,
-		note: "Không gian rộng hơn, thích hợp cho gia đình nhỏ hoặc nhóm bạn đi cùng nhau.",
-		image: "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=1200",
-		amenities: ["Giường lớn", "Bàn làm việc", "Khu ngồi nghỉ"]
-	},
-	{
-		name: "Phòng Cao cấp",
-		type: "2 khách",
-		price: 560000,
-		note: "Tối ưu cho khách muốn trải nghiệm thoải mái hơn với nội thất hài hòa.",
-		image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200",
-		amenities: ["Không gian riêng tư", "Trang bị tốt hơn", "View thoáng"]
-	}
-];
+			const localSnapshotKey = "anhtho_inventory_snapshot";
+			const defaultRooms = [
+				{
+					key: "standard",
+					name: "Phòng Tiêu chuẩn",
+					type: "1-2 khách",
+					price: 280000,
+					note: "Phù hợp khách đi công tác hoặc lưu trú ngắn ngày cần chi phí hợp lý.",
+					image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200",
+					amenities: ["Wifi miễn phí", "Máy lạnh", "Nước nóng"],
+					available: 5,
+					total: 5
+				},
+				{
+					key: "family",
+					name: "Phòng Gia đình",
+					type: "3-4 khách",
+					price: 420000,
+					note: "Không gian rộng hơn, thích hợp cho gia đình nhỏ hoặc nhóm bạn đi cùng nhau.",
+					image: "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=1200",
+					amenities: ["Giường lớn", "Bàn làm việc", "Khu ngồi nghỉ"],
+					available: 5,
+					total: 5
+				},
+				{
+					key: "vip",
+					name: "Phòng Cao cấp",
+					type: "2 khách",
+					price: 560000,
+					note: "Tối ưu cho khách muốn trải nghiệm thoải mái hơn với nội thất hài hòa.",
+					image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200",
+					amenities: ["Không gian riêng tư", "Trang bị tốt hơn", "View thoáng"],
+					available: 5,
+					total: 5
+				}
+			];
 
-const processSteps = [
-	{
-		title: "Chọn loại phòng",
-		description: "Xem hạng phòng, tiện nghi và giá mẫu để chọn phương án phù hợp với nhu cầu."
-	},
-	{
-		title: "Nhập thông tin",
-		description: "Điền họ tên, số điện thoại và thời gian lưu trú để chuẩn bị đặt phòng."
-	},
-	{
-		title: "Xác nhận đặt chỗ",
-		description: "Kiểm tra lại thông tin và gửi yêu cầu để nhà nghỉ xác nhận nhanh chóng."
-	}
-];
+			let roomState = cloneRooms(defaultRooms);
+			let bookingState = [];
+			let selectedRoomKey = "";
+			let realtimeConnected = false;
+			let websocket = null;
 
-const galleryImages = [
-	"https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=1200",
-	"https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=1200",
-	"https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1200",
-	"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200"
-];
+			function cloneRooms(roomsList){
+				return roomsList.map((room) => ({
+					...room,
+					amenities: [...room.amenities]
+				}));
+			}
 
-const reviews = [
-	{
-		name: "Nguyễn Thị Lan",
-		role: "Khách lưu trú 2 đêm",
-		content: "Trang web nhìn sạch sẽ, dễ tìm phòng và có đầy đủ thông tin cần thiết trước khi đặt."
-	},
-	{
-		name: "Trần Văn Hùng",
-		role: "Khách công tác",
-		content: "Bố cục rõ ràng, thông tin liên hệ nổi bật. Rất hợp với kiểu nhà nghỉ cần sự nhanh gọn."
-	},
-	{
-		name: "Lê Minh Thảo",
-		role: "Khách đi gia đình",
-		content: "Phòng nghỉ được trình bày đẹp, dễ xem giá và tiện nghi. Cảm giác thân thiện hơn hẳn."
-	}
-];
+			function loadLocalSnapshot(){
+				try{
+					const raw = localStorage.getItem(localSnapshotKey);
+					if(!raw){
+						return null;
+					}
 
-const statsContainer = document.getElementById("stats");
-statsContainer.innerHTML = stats.map((item) => `
-	<div class="stat">
-		<strong>${item.value}</strong>
-		<span>${item.label}</span>
-	</div>
-`).join("");
+					const snapshot = JSON.parse(raw);
+					if(!snapshot || !Array.isArray(snapshot.rooms) || !Array.isArray(snapshot.bookings)){
+						return null;
+					}
 
-const featuresContainer = document.getElementById("features");
-featuresContainer.innerHTML = features.map((item) => `
-	<article class="feature">
-		<h3>${item.title}</h3>
-		<p>${item.description}</p>
-	</article>
-`).join("");
+					return snapshot;
+				}catch(error){
+					return null;
+				}
+			}
 
-const roomList = document.getElementById("roomList");
-roomList.innerHTML = rooms.map((room) => `
-	<article class="room">
-		<img src="${room.image}" alt="${room.name}">
-		<div class="room-body">
-			<span class="pill">${room.type}</span>
-			<h3>${room.name}</h3>
-			<p>${room.note}</p>
-			<ul>
-				${room.amenities.map((amenity) => `<li>• ${amenity}</li>`).join("")}
-			</ul>
-			<div class="price">${room.price.toLocaleString("vi-VN")} đ/đêm</div>
-			<button onclick="chooseRoom('${room.name}')">Đặt phòng</button>
-		</div>
-	</article>
-`).join("");
+			function saveLocalSnapshot(){
+				localStorage.setItem(localSnapshotKey, JSON.stringify({
+					rooms: roomState,
+					bookings: bookingState
+				}));
+			}
 
-const processContainer = document.getElementById("process");
-processContainer.innerHTML = processSteps.map((step) => `
-	<article class="feature">
-		<h3>${step.title}</h3>
-		<p>${step.description}</p>
-	</article>
-`).join("");
+			function normalizeRoom(room){
+				return {
+					...room,
+					amenities: Array.isArray(room.amenities) ? [...room.amenities] : [],
+					available: Number.isFinite(room.available) ? room.available : 0,
+					total: Number.isFinite(room.total) ? room.total : Number.isFinite(room.available) ? room.available : 0
+				};
+			}
 
-const galleryContainer = document.getElementById("galleryList");
-galleryContainer.innerHTML = galleryImages.map((src, index) => `
-	<img src="${src}" alt="Hình ảnh minh họa ${index + 1}">
-`).join("");
+			function formatBookingSummary(record){
+				return `${record.name} - ${record.roomName} - ${record.total.toLocaleString("vi-VN")} đ`;
+			}
 
-const reviewsContainer = document.getElementById("reviews");
-reviewsContainer.innerHTML = reviews.map((item) => `
-	<article class="review">
-		<p>“${item.content}”</p>
-		<strong>${item.name}</strong>
-		<span>${item.role}</span>
-	</article>
-`).join("");
+			function roomStockLabel(room){
+				if(room.available <= 0){
+					return { text: "Hết phòng", className: "empty" };
+				}
 
-const roomPrices = Object.fromEntries(rooms.map((room) => [room.name, room.price]));
+				if(room.available <= 1){
+					return { text: `Số lượng: ${room.available}`, className: "low" };
+				}
 
-function chooseRoom(roomName){
-	document.getElementById("selectedRoom").value = roomName;
-	document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
-	calculatePrice();
-	updateStayNote();
-}
+				return { text: `Số lượng: ${room.available}`, className: "" };
+			}
 
-function calculatePrice(){
-	const room = document.getElementById("selectedRoom").value;
-	const checkin = document.getElementById("checkinDate").value;
-	const checkout = document.getElementById("checkoutDate").value;
+			function renderBookingRecords(){
+				const bookingCount = document.getElementById("bookingCount");
+				const bookingRecords = document.getElementById("bookingRecords");
 
-	if(!room || !checkin || !checkout){
-		return;
-	}
+				bookingCount.textContent = bookingState.length
+					? realtimeConnected
+						? `Đang đồng bộ thời gian thực. Hiện có ${bookingState.length} bản ghi đặt phòng trong database dùng chung.`
+						: `Đang ở chế độ cục bộ. Hiện có ${bookingState.length} bản ghi đặt phòng trong trình duyệt này.`
+					: realtimeConnected
+						? "Chưa có bản ghi nào trong database dùng chung."
+						: "Chưa có bản ghi nào được lưu cục bộ.";
 
-	const start = new Date(checkin);
-	const end = new Date(checkout);
+				bookingRecords.innerHTML = bookingState.length
+					? bookingState.slice(0, 5).map((record) => `<li>${formatBookingSummary(record)}</li>`).join("")
+					: "<li>Danh sách sẽ hiển thị sau khi khách xác nhận đặt phòng.</li>";
+			}
 
-	if(end <= start){
-		document.getElementById("totalPrice").textContent = "Ngày trả phải lớn hơn ngày nhận";
-		return;
-	}
+			function renderRooms(){
+				const roomList = document.getElementById("roomList");
 
-	const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-	const total = days * roomPrices[room];
+				roomList.innerHTML = roomState.map((room) => {
+					const stock = roomStockLabel(room);
+					return `
+				<article class="room">
+					<img src="${room.image}" alt="${room.name}">
+					<div class="room-body">
+						<div class="room-meta">
+							<span class="pill">${room.type}</span>
+							<span class="room-stock ${stock.className}">${stock.text}</span>
+						</div>
+						<h3>${room.name}</h3>
+						<p>${room.note}</p>
+						<ul>
+							${room.amenities.map((amenity) => `<li>• ${amenity}</li>`).join("")}
+						</ul>
+						<div class="price">${room.price.toLocaleString("vi-VN")} đ/đêm</div>
+						<button ${room.available <= 0 ? "disabled" : ""} onclick="chooseRoom('${room.key}')">${room.available <= 0 ? "Hết phòng" : "Đặt phòng"}</button>
+					</div>
+				</article>`;
+				}).join("");
+			}
 
-	document.getElementById("totalPrice").textContent = `Tổng tiền: ${total.toLocaleString("vi-VN")} đ (${days} đêm)`;
-}
+			function applyInventorySnapshot(snapshot, options = {}){
+				roomState = cloneRooms((snapshot.rooms || []).map(normalizeRoom));
+				bookingState = Array.isArray(snapshot.bookings) ? [...snapshot.bookings] : [];
+				realtimeConnected = Boolean(options.realtime ?? realtimeConnected);
+				renderRooms();
+				renderBookingRecords();
+				saveLocalSnapshot();
+				if(selectedRoomKey){
+					updateSelectedRoomField();
+					calculatePrice();
+				}
+			}
 
-function updateStayNote(){
-	const stayType = document.getElementById("stayType").value;
-	const notes = {
-		standard: "Gói tiêu chuẩn phù hợp cho khách cần một nơi nghỉ ngơi tiện lợi và tiết kiệm.",
-		family: "Gói gia đình phù hợp cho nhóm đông người hoặc chuyến đi có nhiều hành lý.",
-		vip: "Gói cao cấp phù hợp cho khách cần không gian thoải mái hơn và trải nghiệm tốt hơn."
-	};
+			function updateSelectedRoomField(){
+				const selectedRoom = roomState.find((room) => room.key === selectedRoomKey);
+				document.getElementById("selectedRoom").value = selectedRoom ? selectedRoom.name : "";
+			}
 
-	document.getElementById("stayHint").textContent = notes[stayType] || notes.standard;
-	document.getElementById("bookingNote").textContent = notes[stayType] || notes.standard;
-}
+			async function loadInventory(){
+				const localSnapshot = loadLocalSnapshot();
+				if(localSnapshot){
+					applyInventorySnapshot(localSnapshot);
+				}
 
-function submitBooking(){
-	const room = document.getElementById("selectedRoom").value;
-	const name = document.getElementById("fullname").value;
-	const phone = document.getElementById("phone").value;
-	const checkin = document.getElementById("checkinDate").value;
-	const checkout = document.getElementById("checkoutDate").value;
-	const note = document.getElementById("note").value;
-	const stayType = document.getElementById("stayType").value;
+				try{
+					const response = await fetch("/api/rooms", { cache: "no-store" });
+					if(!response.ok){
+						throw new Error("Failed to fetch inventory");
+					}
 
-	if(!room){
-		alert("Vui lòng chọn phòng trước.");
-		return;
-	}
+					const snapshot = await response.json();
+					applyInventorySnapshot(snapshot, { realtime: true });
+					connectRealtime();
+				}catch(error){
+					if(!localSnapshot){
+						applyInventorySnapshot({ rooms: defaultRooms, bookings: [] });
+					}
+				}
+			}
 
-	if(!name || !phone || !checkin || !checkout){
-		alert("Vui lòng nhập đầy đủ thông tin.");
-		return;
-	}
+			function connectRealtime(){
+				if(realtimeConnected || websocket){
+					return;
+				}
 
-	alert(
-		"ĐẶT PHÒNG THÀNH CÔNG!\n\n" +
-		"Khách hàng: " + name + "\n" +
-		"SĐT: " + phone + "\n" +
-		"Phòng: " + room + "\n" +
-		"Loại lưu trú: " + stayType + "\n" +
-		"Ngày nhận: " + checkin + "\n" +
-		"Ngày trả: " + checkout + "\n" +
-		"Ghi chú: " + note
-	);
-}
+				const wsProtocol = location.protocol === "https:" ? "wss:" : "ws:";
+				websocket = new WebSocket(`${wsProtocol}//${location.host}/api/ws`);
 
-updateStayNote();
-</script>
+				websocket.onmessage = (event) => {
+					try{
+						const message = JSON.parse(event.data);
+						if(message.type === "snapshot"){
+							applyInventorySnapshot(message, { realtime: true });
+						}
+					}catch(error){
+						return;
+					}
+				};
 
-</body>
-</html>
+				websocket.onopen = () => {
+					realtimeConnected = true;
+				};
+
+				websocket.onclose = () => {
+					realtimeConnected = false;
+					websocket = null;
+					setTimeout(connectRealtime, 4000);
+				};
+
+				websocket.onerror = () => {
+					realtimeConnected = false;
+				};
+			}
+
+			const statsContainer = document.getElementById("stats");
+			statsContainer.innerHTML = stats.map((item) => `
+				<div class="stat">
+					<strong>${item.value}</strong>
+					<span>${item.label}</span>
+				</div>
+			`).join("");
+
+			const featuresContainer = document.getElementById("features");
+			featuresContainer.innerHTML = features.map((item) => `
+				<article class="feature">
+					<h3>${item.title}</h3>
+					<p>${item.description}</p>
+				</article>
+			`).join("");
+
+			const processContainer = document.getElementById("process");
+			processContainer.innerHTML = processSteps.map((step) => `
+				<article class="feature">
+					<h3>${step.title}</h3>
+					<p>${step.description}</p>
+				</article>
+			`).join("");
+
+			const galleryContainer = document.getElementById("galleryList");
+			galleryContainer.innerHTML = galleryImages.map((src, index) => `
+				<img src="${src}" alt="Hình ảnh minh họa ${index + 1}">
+			`).join("");
+
+			const reviewsContainer = document.getElementById("reviews");
+			reviewsContainer.innerHTML = reviews.map((item) => `
+				<article class="review">
+					<p>“${item.content}”</p>
+					<strong>${item.name}</strong>
+					<span>${item.role}</span>
+				</article>
+			`).join("");
+
+			window.chooseRoom = chooseRoom;
+
+			function chooseRoom(roomKey){
+				selectedRoomKey = roomKey;
+				updateSelectedRoomField();
+				document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+				calculatePrice();
+				updateStayNote();
+			}
+
+			function calculatePrice(){
+				const room = roomState.find((item) => item.key === selectedRoomKey);
+				const checkin = document.getElementById("checkinDate").value;
+				const checkout = document.getElementById("checkoutDate").value;
+
+				if(!room || !checkin || !checkout){
+					return null;
+				}
+
+				const start = new Date(checkin);
+				const end = new Date(checkout);
+
+				if(end <= start){
+					document.getElementById("totalPrice").textContent = "Ngày trả phải lớn hơn ngày nhận";
+					return null;
+				}
+
+				const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+				const total = days * room.price;
+
+				document.getElementById("totalPrice").textContent = `Tổng tiền: ${total.toLocaleString("vi-VN")} đ (${days} đêm)`;
+				return { days, total };
+			}
+
+			function updateStayNote(){
+				const stayType = document.getElementById("stayType").value;
+				const notes = {
+					standard: "Gói tiêu chuẩn phù hợp cho khách cần một nơi nghỉ ngơi tiện lợi và tiết kiệm.",
+					family: "Gói gia đình phù hợp cho nhóm đông người hoặc chuyến đi có nhiều hành lý.",
+					vip: "Gói cao cấp phù hợp cho khách cần không gian thoải mái hơn và trải nghiệm tốt hơn."
+				};
+
+				document.getElementById("stayHint").textContent = notes[stayType] || notes.standard;
+				document.getElementById("bookingNote").textContent = notes[stayType] || notes.standard;
+			}
+
+			function submitBooking(){
+				const room = roomState.find((item) => item.key === selectedRoomKey);
+				const name = document.getElementById("fullname").value;
+				const phone = document.getElementById("phone").value;
+				const checkin = document.getElementById("checkinDate").value;
+				const checkout = document.getElementById("checkoutDate").value;
+				const note = document.getElementById("note").value;
+				const stayType = document.getElementById("stayType").value;
+
+				if(!room){
+					alert("Vui lòng chọn phòng trước.");
+					return;
+				}
+
+				if(!name || !phone || !checkin || !checkout){
+					alert("Vui lòng nhập đầy đủ thông tin.");
+					return;
+				}
+
+				const bookingPrice = calculatePrice();
+
+				if(!bookingPrice){
+					alert("Vui lòng kiểm tra lại ngày nhận và ngày trả phòng.");
+					return;
+				}
+
+				const payload = {
+					roomKey: room.key,
+					name,
+					phone,
+					checkin,
+					checkout,
+					stayType,
+					note
+				};
+
+				if(!realtimeConnected){
+					bookingState.unshift({
+						roomName: room.name,
+						name,
+						phone,
+						checkin,
+						checkout,
+						stayType,
+						note,
+						total: bookingPrice.total,
+						days: bookingPrice.days,
+						createdAt: new Date().toISOString()
+					});
+					room.available = Math.max(0, room.available - 1);
+					renderRooms();
+					renderBookingRecords();
+					saveLocalSnapshot();
+					alert(
+						"ĐẶT PHÒNG THÀNH CÔNG!\n\n" +
+						"Khách hàng: " + name + "\n" +
+						"SĐT: " + phone + "\n" +
+						"Phòng: " + room.name + "\n" +
+						"Loại lưu trú: " + stayType + "\n" +
+						"Ngày nhận: " + checkin + "\n" +
+						"Ngày trả: " + checkout + "\n" +
+						"Ghi chú: " + note + "\n" +
+						"Tổng tiền: " + bookingPrice.total.toLocaleString("vi-VN") + " đ"
+					);
+					return;
+				}
+
+				fetch("/api/bookings", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(payload)
+				})
+					.then(async (response) => {
+						const data = await response.json();
+						if(!response.ok){
+							throw new Error(data?.error || "Không thể đặt phòng");
+						}
+						applyInventorySnapshot(data, { realtime: true });
+						alert(
+							"ĐẶT PHÒNG THÀNH CÔNG!\n\n" +
+							"Khách hàng: " + name + "\n" +
+							"SĐT: " + phone + "\n" +
+							"Phòng: " + room.name + "\n" +
+							"Loại lưu trú: " + stayType + "\n" +
+							"Ngày nhận: " + checkin + "\n" +
+							"Ngày trả: " + checkout + "\n" +
+							"Ghi chú: " + note + "\n" +
+							"Tổng tiền: " + bookingPrice.total.toLocaleString("vi-VN") + " đ"
+						);
+					})
+					.catch((error) => {
+						alert(error.message || "Không thể kết nối database realtime.");
+					});
+			}
+
+			loadInventory();
+			updateStayNote();
+			</script>
