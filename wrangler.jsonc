@@ -1,0 +1,9 @@
+{
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "nhanghianhtho-db",
+      "database_id": "..."
+    }
+  ]
+}
