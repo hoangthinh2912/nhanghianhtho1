@@ -687,27 +687,16 @@ footer{
 	<div class="booking-layout">
 		<div class="booking-box">
 			<input type="text" id="selectedRoom" readonly placeholder="Hạng phòng đã chọn">
-			<input type="text" id="fullname" placeholder="Họ và tên">
-			<input type="tel" id="phone" placeholder="Số điện thoại">
+			<input id="customer_name" type="text">
+<input id="phone" type="text">
+<select id="room_type">
+  <option>Phòng Thường</option>
+  <option>Phòng Cao Cấp</option>
+</select>
+<input id="checkin_date" type="date">
+<textarea id="note"></textarea>
 
-			<label>Ngày nhận phòng</label>
-			<input type="date" id="checkinDate" onchange="calculatePrice()">
-
-			<label>Ngày trả phòng</label>
-			<input type="date" id="checkoutDate" onchange="calculatePrice()">
-
-			<label>Loại lưu trú</label>
-			<select id="stayType" onchange="updateStayNote()">
-				<option value="standard">Tiêu chuẩn</option>
-				<option value="family">Gia đình</option>
-				<option value="vip">Cao cấp</option>
-			</select>
-
-			<textarea id="note" placeholder="Ghi chú thêm cho nhà nghỉ"></textarea>
-
-			<h3 id="totalPrice">Tổng tiền: 0 đ</h3>
-			<div id="bookingNote">Gói tiêu chuẩn phù hợp cho khách lưu trú ngắn ngày.</div>
-			<button onclick="submitBooking()">Xác nhận đặt phòng</button>
+<button onclick="datPhong()">Xác nhận đặt phòng</button>
 		</div>
 
 		<div class="side-stack">
